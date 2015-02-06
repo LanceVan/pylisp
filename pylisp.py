@@ -4,6 +4,8 @@ Date: 2015/02/06-07
 Description: Hust.UniqueStudio.Hackday
 '''
 
+import calc
+
 __table = {}
 __specail_forms = {}
 
@@ -65,41 +67,57 @@ def build_table():
     import math, operator as op
     __table.update(vars(math))
     __table.update({
-        '+': op.add, '-': op.sub, '*': op.mul, '/': op.div, '**': pow,
-        '<': op.lt, '>': op.gt, '<=': op.le, '>=': op.ge, '=': op.eq})
+        '+': calc.add, '-': calc.sub, '*': calc.mul, '/': calc.div, '**': pow,
+        '<': calc.lt, '>': calc.gt, '<=': calc.le, '>=': calc.ge, '=': calc.eq})
     
     __table.update({
-        'fwrite': lambda f, s: open(f, 'w').write(s),
-        'fread': lambda f: open(f).read(),
-        'list': lambda *x: list(x),
-        'set': lambda *x: set(x),
-        'dict': lambda x,y: dict(zip(x,y)), 
-        'zero?': lambda x: x == 0, 
-        'print': _print, 'import': _import, 
-        'map': map,
-        'reduce': reduce,
-        'max': max,
-        'min': min,
-        'abs': abs,
-        'len': len, 
-        'append':  op.add,  
-        'apply':   apply,
-        'begin':   lambda *x: x[-1],
-        'first':     lambda x: x[0],
+        'quotient': lambda a, b: a // b,
+        'remainder':calc.rem,
+        'modulo':   lambda a, b: a % b,
+        'gcd':      calc.gcd
+        'lcm':      calc.lcm
+
+        'fwrite':   lambda f, s: open(f, 'w').write(s),
+        'fread':    lambda f: open(f).read(),
+        'expt':     lambda x, y: x ** y,
+        'list':     lambda *x: list(x),
+        'set':      lambda *x: set(x),
+        'dict':     lambda x, y: dict(zip(x, y)), 
+        'zero?':    lambda x: x == 0, 
+        'print':    _print, 'import': _import, 
+        'map':      map,
+        'reduce':   reduce,
+        'max':      max,
+        'min':      min,
+        'abs':      abs,
+        'len':      len, 
+        'append':   op.add,  
+        'apply':    apply,
+        'begin':    lambda *x: x[-1],
+        'first':    lambda x: x[0],
         'rest':     lambda x: x[1:], 
-        'cons':    lambda x,y: [x] + y,
-        'eq?':     op.is_, 
-        'equal?':  op.eq, 
-        'len':  len, 
-        'list?':   lambda x: isinstance(x,list), 
-        'max':     max,
-        'min':     min,
-        'not':     op.not_,
-        'null?':   lambda x: x == [], 
-        'number?': lambda x: isinstance(x, int) and isinstance(x, float),   
+        'cons':     lambda x, y: [x] + y,
+        'eq?':      op.is_, 
+        'equal?':   op.eq, 
+        'list?':    lambda x: isinstance(x, list), 
+        'max':      max,
+        'min':      min,
+        'not':      op.not_,
+        'null?':    lambda x: x == [], 
+        'number?':  lambda x: isinstance(x, int) or isinstance(x, float),  
+        'complex?': lambda x: isinstance(x, complex),
+        'boolean?': lambda x: isinstance(x, bool),
+        'rational?':lambda x: isinstance(x, float),
+        'integer?': lambda x: isinstance(x, int),
+        'zero?':    lambda x: x == 0,
+        'positive?':lambda x: x > 0,
+        'negative?':lambda x: x < 0,
+        'odd?':     lambda x: x % 2 == 1,
+        'even?':    lambda x: x % 2 == 0,
+
         'procedure?': callable,
-        'round':   round,
-        'symbol?': lambda x: isinstance(x, str),
+        'round':    round,
+        'symbol?':  lambda x: isinstance(x, str),
         })
 
 build_table()
